@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">AppKotlin</string>
+    <string name="username">UserName :</string>
+    <string name="enter_your_username">Enter your UserName</string>
+    <string name="password">Password :</string>
+    <string name="login">login</string>
+    <string name="enter_your_message">Enter your message</string>
+    <string name="add">add</string>
+</resources>
