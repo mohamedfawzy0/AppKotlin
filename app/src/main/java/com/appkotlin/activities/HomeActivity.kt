@@ -19,13 +19,14 @@ import com.appkotlin.models.local.LocalRepositoryImp
 import com.appkotlin.models.local.UserDatabase
 import com.appkotlin.mvvm.HomeActivityMVVM
 import kotlinx.coroutines.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeActivity : AppCompatActivity(), UserAdapter.OnListItemClick {
     lateinit var binding: ActivityHomeBinding
     var userList: List<User> = emptyList()
     var userName: String? = null
-    var adapter: UserAdapter = UserAdapter(userList)
-    lateinit var viewModel: HomeActivityMVVM
+    private val adapter: UserAdapter by lazy { UserAdapter(userList) }
+    private val viewModel: HomeActivityMVVM by viewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
@@ -42,7 +43,7 @@ class HomeActivity : AppCompatActivity(), UserAdapter.OnListItemClick {
     }
 
     private fun initView() {
-        viewModel = ViewModelProvider(this).get(HomeActivityMVVM::class.java)
+//        viewModel = ViewModelProvider(this).get(HomeActivityMVVM::class.java)
 
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.setHasFixedSize(true)
@@ -54,48 +55,62 @@ class HomeActivity : AppCompatActivity(), UserAdapter.OnListItemClick {
 
             val msg = binding.etAdd.text.toString()
 
-            viewModel.addUser(
-                User(
-                    0,
-                    userName.toString(),
-                    msg,
-                    R.drawable.ic__user
-                )
-            )
+            viewModel.addUserAPI(User(
+                9,
+                userName.toString(),
+                msg,
+                R.drawable.ic__user
+            ))
+//            viewModel.addUser(
+//                User(
+//                    0,
+//                    userName.toString(),
+//                    msg,
+//                    R.drawable.ic__user
+//                )
+//            )
 
             getAllUsers()
             binding.etAdd.setText("")
         }
+        Log.e("user_image",R.drawable.ic__user.toString())
 
         adapter.onListItemClick = this
-        viewModel.usersLiveData.observe(this,
+        viewModel.usersAPILiveData.observe(this,
             Observer {
-                if (!it.isNullOrEmpty()) {
+                if (it !=null) {
                     adapter.updateList(it)
                     binding.progressBar.visibility = View.GONE
                     binding.tvNoData.visibility = View.GONE
-                }else{
-                    binding.tvNoData.visibility = View.VISIBLE
-                    binding.progressBar.visibility = View.GONE
-
-
                 }
             })
+
+        viewModel.addUserAPILiveData.observe(this, Observer {
+            if (it !=null){
+                adapter.notifyDataSetChanged()
+                Toast.makeText(this,"The User ${it.name} is added successfully",Toast.LENGTH_LONG).show()
+            }else{
+                Toast.makeText(this,"Connection Failed",Toast.LENGTH_LONG).show()
+
+            }
+        })
 
     }
 
     fun getAllUsers() {
-        viewModel.getUsers()
+//        viewModel.getUsers()
         binding.progressBar.visibility = View.VISIBLE
+        viewModel.getUsersAPI()
 
     }
 
 
     override fun onItemClick(user: User) {
-        viewModel.deleteUser(user)
+//        viewModel.deleteUser(user)
+        viewModel.deleteAPIUser(user.id)
 
-        Toast.makeText(this, "The user is deleted successfully", Toast.LENGTH_LONG).show()
-        Log.e("dataaa", user.userName + " + " + user.data)
+        Toast.makeText(this, "The user ${user.name} is deleted successfully", Toast.LENGTH_LONG).show()
+        Log.e("dataaa", user.name + " + " + user.message)
 
         getAllUsers()
     }

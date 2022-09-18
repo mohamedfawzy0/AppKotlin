@@ -5,20 +5,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class LocalRepositoryImp(private val db: UserDatabase) : LocalRepository {
-    override suspend fun getUsers() = withContext(Dispatchers.IO) {
-            db.userDAO().getUsers()
-        }
+    override suspend fun getUsers() = db.userDAO().getUsers()
 
 
     override suspend fun deleteUser(user: User) {
-        withContext(Dispatchers.IO) {
-            db.userDAO().deleteUser(user)
-        }
+        db.userDAO().deleteUser(user)
     }
 
     override suspend fun insertOrUpdateUser(user: User) {
-        withContext(Dispatchers.IO) {
-            db.userDAO().insertOrUpdateUser(user)
-        }
+        db.userDAO().insertOrUpdateUser(user)
+
     }
 }

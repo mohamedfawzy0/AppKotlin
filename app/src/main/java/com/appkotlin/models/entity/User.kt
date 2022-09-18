@@ -9,8 +9,8 @@ import java.net.IDN
 data class User(
     @PrimaryKey(autoGenerate = true)
     var id:Int,
-    @ColumnInfo(name = "user_name")
-    var userName:String,
-    var data:String,
-    var img_id:Int
+//    @ColumnInfo(name = "user_name")
+    var name:String,
+    var message:String,
+    var image_id:Int
     )
