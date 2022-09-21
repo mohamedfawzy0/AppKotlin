@@ -1,9 +1,6 @@
-package com.appkotlin.remote
+package com.appkotlin.models.remote
 
 import com.appkotlin.models.entity.User
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import retrofit2.Response
 
 class RemoteRepositoryImp(private val api: ServiceAPI) : RemoteRepository {
     override suspend fun getAPIUsers() = api.getAPIUsers()

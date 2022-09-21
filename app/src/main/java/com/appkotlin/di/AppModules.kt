@@ -1,7 +1,6 @@
 package com.appkotlin.di
 
 import android.app.Application
-import android.content.Context
 import androidx.room.Room
 import com.appkotlin.models.Repository
 import com.appkotlin.models.RepositoryImp
@@ -9,9 +8,9 @@ import com.appkotlin.models.local.LocalRepository
 import com.appkotlin.models.local.LocalRepositoryImp
 import com.appkotlin.models.local.UserDatabase
 import com.appkotlin.mvvm.HomeActivityMVVM
-import com.appkotlin.remote.RemoteRepository
-import com.appkotlin.remote.RemoteRepositoryImp
-import com.appkotlin.remote.ServiceAPI
+import com.appkotlin.models.remote.RemoteRepository
+import com.appkotlin.models.remote.RemoteRepositoryImp
+import com.appkotlin.models.remote.ServiceAPI
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module

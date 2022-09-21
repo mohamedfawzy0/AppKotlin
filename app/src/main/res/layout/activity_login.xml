@@ -101,6 +101,17 @@
                         android:text="@string/login"
                         android:textColor="@color/white" />
 
+                    <Button
+                        android:id="@+id/btnService"
+                        android:layout_width="100dp"
+                        android:layout_height="45dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginBottom="30dp"
+                        android:background="@drawable/btn_shape2"
+                        android:text="@string/runService"
+                        android:textColor="@color/white" />
+
                 </LinearLayout>
 
             </ScrollView>

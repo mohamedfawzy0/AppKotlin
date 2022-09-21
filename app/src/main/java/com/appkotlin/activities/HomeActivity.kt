@@ -1,5 +1,6 @@
 package com.appkotlin.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -18,6 +19,7 @@ import com.appkotlin.models.entity.User
 import com.appkotlin.models.local.LocalRepositoryImp
 import com.appkotlin.models.local.UserDatabase
 import com.appkotlin.mvvm.HomeActivityMVVM
+import com.appkotlin.service.MyService
 import kotlinx.coroutines.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -43,6 +45,8 @@ class HomeActivity : AppCompatActivity(), UserAdapter.OnListItemClick {
     }
 
     private fun initView() {
+        val intent=Intent(this,MyService::class.java)
+        startForegroundService(intent)
 //        viewModel = ViewModelProvider(this).get(HomeActivityMVVM::class.java)
 
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
